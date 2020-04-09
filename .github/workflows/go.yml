@@ -32,7 +32,13 @@ jobs:
 
     - name: Build
       run: |
-       go build -v .
-       echo $GOPATH
-       ls
-      
+       mkdir bin
+       mkdir bin/linux
+       mkdir bin/linux/amd64
+       GOOS=linux GOARCH=amd64 go build bin/linux/amd64/
+       
+    - name: Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: Rclone mod
+        path: ./bin
