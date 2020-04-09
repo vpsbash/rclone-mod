@@ -41,7 +41,7 @@ jobs:
        upx -9 bin/linux/amd64/rclone-mod
        mkdir bin/linux/i386
        CGO_ENABLED=0 GOOS=linux GOARCH=386 go build -o bin/linux/i386/ -ldflags "-s" .
-       upx -9 bin/linux/386/rclone-mod
+       upx -9 bin/linux/i386/rclone-mod
        mkdir bin/linux/arm64
        CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o bin/linux/arm64/ -ldflags "-s" .
        upx -9 bin/linux/arm64/rclone-mod
