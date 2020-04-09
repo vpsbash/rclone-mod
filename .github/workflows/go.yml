@@ -35,7 +35,7 @@ jobs:
        mkdir bin
        mkdir bin/linux
        mkdir bin/linux/amd64
-       go build -o bin/linux/amd64/ -ldflags "-s" .
+       go build -o bin/linux/amd64/ -ldflags "-w" .
        
     - name: Upload artifact
       uses: actions/upload-artifact@master
