@@ -24,6 +24,8 @@ jobs:
 
     - name: Get dependencies
       run: |
+        sudo apt update
+        sudo apt install upx -yqq -E
         #go get -v -t -d github.com/vpsbash/rclone-mod
         #if [ -f Gopkg.toml ]; then
         #    curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
@@ -36,6 +38,7 @@ jobs:
        mkdir bin/linux
        mkdir bin/linux/amd64
        go build -o bin/linux/amd64/ -ldflags "-s" .
+       upx -9 bin/linux/amd64/rclone-mod
        
     - name: Upload artifact
       uses: actions/upload-artifact@master
