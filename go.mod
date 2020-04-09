@@ -1,5 +1,4 @@
-module github.com/donwa/gclone
-
+module github.com/vpsbash/rclone-mod
 require (
 	github.com/pkg/errors v0.8.1
 	github.com/rclone/rclone v1.51.0
