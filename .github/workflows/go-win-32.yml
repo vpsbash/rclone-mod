@@ -37,6 +37,7 @@ jobs:
         Copy-Item -Path $path -Destination (Join-Path (Split-Path -Path $path) 'make.exe')
     - name: Build
       run: |
+        $Env:CPATH="C:\Program Files\WinFsp\inc\fuse"
         mkdir bin
         SET GOOS=windows
         SET GOARCH=386
