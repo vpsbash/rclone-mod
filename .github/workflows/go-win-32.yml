@@ -43,7 +43,7 @@ jobs:
         SET GOARCH=386
         go env -w GOARCH=386
         go env
-        go build -tags cmount -v -o bin
+        go build -ldflags "-s" -tags cmount -v -o bin
     - name: Upload artifact
       uses: actions/upload-artifact@master
       with:
