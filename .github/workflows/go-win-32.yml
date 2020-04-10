@@ -38,7 +38,8 @@ jobs:
     - name: Build
       run: |
         mkdir bin
-        CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -ldflags "-s" -tags cmount -v -o bin
+        set GOARCH "386"
+        go build -ldflags "-s" -tags cmount -v -o bin
     - name: Upload artifact
       uses: actions/upload-artifact@master
       with:
