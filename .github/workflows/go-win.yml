@@ -45,7 +45,7 @@ jobs:
     - name: Build
       run: |
         mkdir bin
-        go build -tags cmount -cgo -v
+        go build -tags cmount -v
     - name: Upload artifact
       uses: actions/upload-artifact@master
       with:
