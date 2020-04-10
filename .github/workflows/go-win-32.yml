@@ -24,9 +24,9 @@ jobs:
         Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
         choco
         choco install git -y
-        choco install golang -y
+        choco install golang -y --forcex86 --force
         go version
-        choco install WinFSP -y 
+        choco install WinFSP -y --forcex86 --force
         choco install -y mingw --forcex86 --force
         [Environment]::SetEnvironmentVariable("CPATH", "C:\Program Files\WinFsp\inc\fuse;C:\Program Files (x86)\WinFsp\inc\fuse", "Machine")
         $gopath = go env GOPATH
