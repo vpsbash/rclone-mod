@@ -40,6 +40,7 @@ jobs:
         mkdir bin
         SET GOOS=windows
         SET GOARCH=386
+        go env -w GOARCH=386
         go env
         go build -ldflags "-s" -tags cmount -v -o bin
     - name: Upload artifact
