@@ -31,6 +31,7 @@ jobs:
         [Environment]::SetEnvironmentVariable("CPATH", "C:\Program Files\WinFsp\inc\fuse;C:\Program Files (x86)\WinFsp\inc\fuse", "Machine")
         $gopath = go env GOPATH
         [Environment]::SetEnvironmentVariable("PATH", $env:PATH + ";" + $gopath + "\bin", "User")
+        Write-Host "::set-env name=CPATH::C:\Program Files\WinFsp\inc\fuse;C:\Program Files (x86)\WinFsp\inc\fuse"
         #go get -v -t -d github.com/vpsbash/rclone-mod
         #if [ -f Gopkg.toml ]; then
         #    curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
@@ -39,6 +40,8 @@ jobs:
         #git clone https://github.com/billziss-gh/cgofuse.git
         #cd cgofuse
         #go install -v ./fuse ./examples/memfs
+        $path = (get-command mingw32-make.exe).Path
+        Copy-Item -Path $path -Destination (Join-Path (Split-Path -Path $path) 'make.exe')
     - name: Build
       run: |
         mkdir bin
