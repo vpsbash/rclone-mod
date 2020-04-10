@@ -31,7 +31,7 @@ jobs:
         [Environment]::SetEnvironmentVariable("CPATH", "C:\Program Files\WinFsp\inc\fuse;C:\Program Files (x86)\WinFsp\inc\fuse", "Machine")
         $gopath = go env GOPATH
         [Environment]::SetEnvironmentVariable("PATH", $env:PATH + ";" + $gopath + "\bin", "User")
-        Write-Host "::set-env name=CPATH::C:\Program Files\WinFsp\inc\fuse;C:\Program Files (x86)\WinFsp\inc\fuse"
+        Write-Host "::set-env name=CPATH::C:\Program Files (x86)\WinFsp\inc\fuse"
         Write-Host "::add-path::C:\\ProgramData\\chocolatey\\lib\\mingw\\tools\\install\\mingw32\\bin"
         $path = (get-command mingw32-make.exe).Path
         Copy-Item -Path $path -Destination (Join-Path (Split-Path -Path $path) 'make.exe')
