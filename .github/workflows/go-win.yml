@@ -1,0 +1,53 @@
+name: Go-win
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: windows-latest
+    steps:
+
+
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+
+    - name: Get dependencies
+      run: |
+        Get-ExecutionPolicy # Check it doesn't say restricted
+        Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+        choco
+        choco install git -y
+        choco install golang -y
+        go version
+        choco install WinFSP -y 
+        choco install MinGW -y
+        [Environment]::SetEnvironmentVariable("CPATH", "C:\Program Files\WinFsp\inc\fuse;C:\Program Files (x86)\WinFsp\inc\fuse", "Machine")
+        $gopath = go env GOPATH
+        [Environment]::SetEnvironmentVariable("PATH", $env:PATH + ";" + $gopath + "\bin", "User")
+        Write-Host "::set-env name=CPATH::C:\Program Files\WinFsp\inc\fuse;C:\Program Files (x86)\WinFsp\inc\fuse"
+        #go get -v -t -d github.com/vpsbash/rclone-mod
+        #if [ -f Gopkg.toml ]; then
+        #    curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+        #    dep ensure
+        #fi
+        #git clone https://github.com/billziss-gh/cgofuse.git
+        #cd cgofuse
+        #go install -v ./fuse ./examples/memfs
+        $path = (get-command mingw32-make.exe).Path
+        Copy-Item -Path $path -Destination (Join-Path (Split-Path -Path $path) 'make.exe')
+    - name: Build
+      run: |
+        mkdir bin
+        go build -ldflags "-s" -tags cmount -v -o bin
+    - name: Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: Rclone mod
+        path: ./bin

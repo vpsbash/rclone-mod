@@ -1,0 +1,51 @@
+name: Go-win-32
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: windows-latest
+    steps:
+
+
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+
+    - name: Get dependencies
+      run: |
+        Get-ExecutionPolicy # Check it doesn't say restricted
+        Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+        choco
+        choco install git -y
+        choco install golang -y --forcex86 --force
+        go version
+        choco install WinFSP -y --forcex86 --force
+        choco install -y mingw --forcex86 --force
+        [Environment]::SetEnvironmentVariable("CPATH", "C:\Program Files\WinFsp\inc\fuse;C:\Program Files (x86)\WinFsp\inc\fuse", "Machine")
+        $gopath = go env GOPATH
+        [Environment]::SetEnvironmentVariable("PATH", $env:PATH + ";" + $gopath + "\bin", "User")
+        Write-Host "::set-env name=CPATH::C:\Program Files\WinFsp\inc\fuse;C:\Program Files (x86)\WinFsp\inc\fuse"
+        Write-Host "::add-path::C:\\ProgramData\\chocolatey\\lib\\mingw\\tools\\install\\mingw32\\bin"
+        $path = (get-command mingw32-make.exe).Path
+        Copy-Item -Path $path -Destination (Join-Path (Split-Path -Path $path) 'make.exe')
+    - name: Build
+      run: |
+        $Env:CPATH="C:\Program Files\WinFsp\inc\fuse"
+        mkdir bin
+        SET GOOS=windows
+        SET GOARCH=386
+        go env -w GOARCH=386
+        go env
+        go build -ldflags "-s" -tags cmount -v -o bin
+    - name: Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: Rclone mod WIN 32
+        path: ./bin
