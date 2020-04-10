@@ -38,7 +38,7 @@ jobs:
     - name: Build
       run: |
         mkdir bin
-        set GOARCH "386"
+        set GOARCH="386"
         go build -ldflags "-s" -tags cmount -v -o bin
     - name: Upload artifact
       uses: actions/upload-artifact@master
