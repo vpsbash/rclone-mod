@@ -39,10 +39,6 @@ jobs:
     - name: Build
       run: |
         mkdir bin
-        git config --global user.name "vpsbash"
-        git config --global user.email rcdfrd1@gmail.com
-        go get github.com/ncw/rclone
-        cd .\go\src\github.com\ncw\rclone\
         go build -tags cmount -v
     - name: Upload artifact
       uses: actions/upload-artifact@master
