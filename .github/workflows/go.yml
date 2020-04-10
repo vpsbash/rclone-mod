@@ -54,7 +54,7 @@ jobs:
        mkdir bin/windows/amd64
        CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o bin/windows/amd64/ -ldflags "-s" -tags cmount .
        mkdir bin/darwin
-       mkdir bin/darwin/386
+       mkdir bin/darwin/i386
        CGO_ENABLED=0 GOOS=darwin GOARCH=386 go build -o bin/darwin/i386/ -ldflags "-s" .
        mkdir bin/darwin/amd64
        CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o bin/darwin/amd64/ -ldflags "-s" .
