@@ -36,6 +36,10 @@ jobs:
         #    curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
         #    dep ensure
         #fi
+        git clone https://github.com/billziss-gh/cgofuse.git
+        cd cgofuse
+        set CPATH=C:\Program Files (x86)\WinFsp\inc\fuse
+        go install -v ./fuse ./examples/memfs
     - name: Build
       run: |
         mkdir bin
