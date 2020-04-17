@@ -27,6 +27,7 @@ jobs:
         choco install golang -y --forcex86 --force
         go version
         choco install WinFSP -y --forcex86 --force
+        choco install WinFSP -y 
         choco install -y mingw --forcex86 --force
         [Environment]::SetEnvironmentVariable("CPATH", "C:\Program Files\WinFsp\inc\fuse;C:\Program Files (x86)\WinFsp\inc\fuse", "Machine")
         $gopath = go env GOPATH
@@ -40,7 +41,7 @@ jobs:
     - name: Build
       run: |
         $Env:CPATH="C:\Program Files (x86)\WinFsp\inc\fuse"
-        dir C:\Program Files (x86)\WinFsp\inc\fuse
+        #dir C:\Program Files (x86)\WinFsp\inc\fuse
         mkdir bin
         SET GOOS=windows
         SET GOARCH=386
