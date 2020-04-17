@@ -35,9 +35,12 @@ jobs:
         Write-Host "::add-path::C:\\ProgramData\\chocolatey\\lib\\mingw\\tools\\install\\mingw32\\bin"
         $path = (get-command mingw32-make.exe).Path
         Copy-Item -Path $path -Destination (Join-Path (Split-Path -Path $path) 'make.exe')
+        $path = (get-command mingw32-make.exe).Path
+        Copy-Item -Path $path -Destination (Join-Path (Split-Path -Path $path) 'make.exe')
     - name: Build
       run: |
         $Env:CPATH="C:\Program Files (x86)\WinFsp\inc\fuse"
+        dir C:\Program Files (x86)\WinFsp\inc\fuse
         mkdir bin
         SET GOOS=windows
         SET GOARCH=386
